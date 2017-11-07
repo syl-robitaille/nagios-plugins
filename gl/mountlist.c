@@ -213,8 +213,11 @@ me_remote (char const *fs_name, char const *fs_type _GL_UNUSED)
 #ifndef ME_REMOTE
 /* A file system is "remote" if its Fs_name contains a ':'
    or if (it is of type (smbfs or cifs) and its Fs_name starts with '//').  */
+/* 2017-04-04 Sylvain Robitaille (syl@encs.concordia.ca): treat
+   autofs-mounted filesystems as remote */
 # define ME_REMOTE(Fs_name, Fs_type)            \
-    (strchr (Fs_name, ':') != NULL              \
+    (strcmp (Fs_type, "autofs") == 0            \
+     || strchr (Fs_name, ':') != NULL           \
      || ((Fs_name)[0] == '/'                    \
          && (Fs_name)[1] == '/'                 \
          && (strcmp (Fs_type, "smbfs") == 0     \
