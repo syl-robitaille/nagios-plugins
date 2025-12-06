@@ -137,7 +137,7 @@ export ORACLE_HOME PATH LD_LIBRARY_PATH
 case "$cmd" in
 --tns)
     tnschk=$(tnsping "$2")
-    tnschk2=$(echo "$tnschk" | grep -c OK)
+    tnschk2=$(echo "$tnschk" | grep -Ec "^OK \([[:digit:]]+ msec\)")
     if [ "${tnschk2}" -eq 1 ] ; then 
         tnschk3=${tnschk##*(}; tnschk3=${tnschk3%)*}
         echo "OK - reply time ${tnschk3} from $2"
@@ -166,7 +166,7 @@ case "$cmd" in
     }'
     ;;
 --db)
-    pmonchk=$(pgrep -f "(asm|ora)_pmon_${2}$")
+    pmonchk=$(pgrep -f "(asm|ora|xe)_pmon_${2}$" | wc -l)
     if [ "${pmonchk}" -ge 1 ] ; then
         echo "${2} OK - ${pmonchk} PMON process(es) running"
         exit "$STATE_OK"

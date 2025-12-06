@@ -124,7 +124,7 @@ main (int argc, char **argv)
 			SERVICE[i] = toupper(SERVICE[i]);
 	}
 
-	/* set up a resonable buffer at first (will be realloc()'ed if
+	/* set up a reasonable buffer at first (will be realloc()'ed if
 	 * user specifies other options) */
 	server_expect = calloc(sizeof(char *), 2);
 
@@ -429,6 +429,7 @@ process_arguments (int argc, char **argv)
 		{"help", no_argument, 0, 'h'},
 		{"ssl", no_argument, 0, 'S'},
 		{"certificate", required_argument, 0, 'D'},
+		{"sni", required_argument, 0, 'N'},
 		{0, 0, 0, 0}
 	};
 
