@@ -225,8 +225,11 @@ me_remote (char const *fs_name, char const *fs_type _GL_UNUSED)
    or if (it is of type (smbfs or cifs) and its Fs_name starts with '//').  */
 /* 2017-04-04 Sylvain Robitaille (syl@encs.concordia.ca): treat
    autofs-mounted filesystems as remote */
+/* 2019-01-16 Sylvain Robitaille (syl@encs.concordia.ca): treat
+   tmpfs-mounted filesystems as remote */
 # define ME_REMOTE(Fs_name, Fs_type)            \
     (strcmp (Fs_type, "autofs") == 0            \
+     || strcmp (Fs_type, "tmpfs") == 0          \
      || strchr (Fs_name, ':') != NULL           \
      || ((Fs_name)[0] == '/'                    \
          && (Fs_name)[1] == '/'                 \
